@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <circle cx="32" cy="14" r="9" fill="#083B66"/>
+  <path d="M32 24 C22 24 18 32 18 46 L46 46 C46 32 42 24 32 24Z" fill="#00A6A6"/>
+  <!-- ربطة عنق -->
+  <path d="M32 24 L32 34 L28 40 L32 46 L36 40 L32 34Z" fill="#083B66"/>
+  <!-- حقيبة يد (عمل) -->
+  <rect x="24" y="34" width="16" height="12" fill="#083B66" rx="2"/>
+  <path d="M28 34 L28 30 L36 30 L36 34" stroke="#FFFFFF" stroke-width="2" fill="none"/>
+</svg>
