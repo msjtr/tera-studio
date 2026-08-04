@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">TERA Studio</title>
+    
+    <style>
+        /* --- الخطوط المحلية (بدون CDN) --- */
+        @font-face {
+            font-family: 'Cairo';
+            src: url('assets/fonts/Cairo-Regular.ttf') format('truetype');
+            font-weight: 400;
+        }
+        @font-face {
+            font-family: 'Cairo';
+            src: url('assets/fonts/Cairo-Bold.ttf') format('truetype');
+            font-weight: 700;
+        }
+        @font-face {
+            font-family: 'IBM Plex Sans Arabic';
+            src: url('assets/fonts/IBMPlexSansArabic-Regular.ttf') format('truetype');
+            font-weight: 400;
+        }
+        @font-face {
+            font-family: 'IBM Plex Sans Arabic';
+            src: url('assets/fonts/IBMPlexSansArabic-Bold.ttf') format('truetype');
+            font-weight: 700;
+        }
+
+        /* --- CSS Variables الأساسية (سيتم تطبيقها عبر ThemeEngine) --- */
+        :root {
+            --color-primary: #083B66;
+            --color-secondary: #00A6A6;
+            --color-background: #F5F7FA;
+            --color-card: #FFFFFF;
+            --color-text: #1F2937;
+            --color-white: #FFFFFF;
+            --color-transparent: transparent;
+            
+            --spacing-small: 8px;
+            --spacing-medium: 16px;
+            --spacing-large: 24px;
+            
+            --radius-default: 20px;
+            
+            --font-primary: 'Cairo', sans-serif;
+            --font-fallback: 'IBM Plex Sans Arabic', sans-serif;
+            
+            --shadow-default: 0 4px 12px rgba(0,0,0,0.1);
+            --border-default: 1px solid #e5e7eb;
+            --transition-default: all 0.3s ease;
+        }
+
+        /* --- التنسيق العام --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            padding: 20px;
+            background-color: var(--color-background);
+            color: var(--color-text);
+            font-family: var(--font-primary);
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .section { margin-bottom: var(--spacing-large); padding: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--spacing-medium); }
+        
+        /* --- فئات المكونات (Components Classes) --- */
+        .header-component { display: flex; justify-content: space-between; align-items: center; padding: var(--spacing-medium) 0; }
+        .header-logo { height: 50px; }
+        .header-info { text-align: left; }
+
+        .offer-component { position: relative; background-size: cover; background-position: center; border-radius: var(--radius-default); overflow: hidden; min-height: 300px; display: flex; align-items: flex-end; }
+        .offer-overlay { background: rgba(0,0,0,0.5); padding: var(--spacing-large); width: 100%; border-radius: var(--radius-default); }
+        .offer-title { font-size: 2.5rem; margin-bottom: var(--spacing-small); color: var(--color-white); }
+        .offer-description { font-size: 1.2rem; color: var(--color-white); }
+
+        .package-component { background: var(--color-card); padding: var(--spacing-large); border-radius: var(--radius-default); box-shadow: var(--shadow-default); }
+        .package-title { color: var(--color-primary); margin-bottom: var(--spacing-medium); }
+        .package-features { list-style: none; padding: 0; }
+        .package-features li { padding: var(--spacing-small) 0; border-bottom: var(--border-default); }
+        .package-features li:last-child { border-bottom: none; }
+
+        .category-card { background: var(--color-card); padding: var(--spacing-medium); border-radius: var(--radius-default); box-shadow: var(--shadow-default); text-align: center; transition: var(--transition-default); }
+        .category-card:hover { transform: translateY(-5px); }
+        .category-icon { width: 64px; height: 64px; margin-bottom: var(--spacing-small); }
+        .category-title { color: var(--color-primary); margin-bottom: var(--spacing-small); }
+        .category-description { color: var(--color-text); }
+
+        .feature-card { background: var(--color-card); padding: var(--spacing-medium); border-radius: var(--radius-default); box-shadow: var(--shadow-default); border-right: 4px solid var(--color-secondary); transition: var(--transition-default); }
+        .feature-card:hover { transform: scale(1.02); }
+        .feature-title { color: var(--color-primary); margin-bottom: var(--spacing-small); }
+        .feature-description { color: var(--color-text); }
+
+        .cta-component { text-align: center; background: var(--color-primary); padding: var(--spacing-large); border-radius: var(--radius-default); color: var(--color-white); }
+        .cta-title { margin-bottom: var(--spacing-medium); }
+        .cta-button { display: inline-block; padding: 10px 20px; background: var(--color-white); color: var(--color-primary); text-decoration: none; border-radius: var(--radius-default); font-weight: bold; transition: var(--transition-default); }
+        .cta-button:hover { background: var(--color-secondary); color: var(--color-white); }
+
+        .contact-component { display: flex; flex-direction: column; align-items: center; background: var(--color-card); padding: var(--spacing-large); border-radius: var(--radius-default); box-shadow: var(--shadow-default); }
+        .contact-title { color: var(--color-primary); margin-bottom: var(--spacing-medium); }
+        .contact-links { display: flex; gap: var(--spacing-medium); margin-top: var(--spacing-small); }
+        .contact-link { display: flex; align-items: center; gap: 5px; color: var(--color-secondary); text-decoration: none; transition: var(--transition-default); }
+        .contact-link:hover { color: var(--color-primary); }
+        .contact-icon { width: 24px; height: 24px; }
+        .contact-qr { width: 100px; height: 100px; margin-top: var(--spacing-medium); }
+
+        .footer-component { display: flex; justify-content: space-between; align-items: center; padding: var(--spacing-large) 0; border-top: var(--border-default); }
+        .footer-logo { height: 40px; }
+        .footer-links { display: flex; gap: var(--spacing-medium); }
+        .footer-icon { width: 24px; height: 24px; transition: var(--transition-default); }
+        .footer-icon:hover { opacity: 0.7; }
+        
+        /* --- أزرار التصدير --- */
+        .export-group { display: flex; gap: 8px; }
+        .export-btn { background: var(--color-secondary); color: var(--color-white); border: none; padding: 5px 12px; border-radius: var(--radius-default); cursor: pointer; font-family: inherit; font-size: 0.9rem; transition: var(--transition-default); }
+        .export-btn:hover { background: var(--color-primary); }
+        .export-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    </style>
+</head>
+<body>
+
+    <!-- هيكل دلالي فارغ يتم بناؤه عبر المكونات -->
+    <header id="app-header" class="container"></header>
+    <main class="container" id="app-main">
+        <section id="section-offer" class="section"></section>
+        <section id="section-package" class="section"></section>
+        <section id="section-categories" class="section"></section>
+        <section id="section-features" class="section"></section>
+        <section id="section-cta" class="section"></section>
+        <section id="section-contact" class="section"></section>
+    </main>
+    <footer id="app-footer" class="container"></footer>
+
+    <!-- تحميل مكتبات التصدير محلياً (بدون CDN) - يجب وضع الملفات في assets/js/ -->
+    <script src="assets/js/html2canvas.min.js"></script>
+    <script src="assets/js/jspdf.umd.min.js"></script>
+
+    <script>
+        // ============================================================
+        // Architecture Rule: NO HARDCONFIG DATA IN JS/HTML.
+        // ALL data MUST come from config.json and data.json.
+        // ============================================================
+        // دورة العمل المعمارية:
+        // App → Loader → Config → Data → Components → Renderer → ThemeEngine → ExportEngine
+        // ============================================================
+
+        // --- 1. Logger (نظام السجلات الاحترافي) ---
+        class Logger {
+            static levels = { INFO: 'INFO', WARN: 'WARN', ERROR: 'ERROR', DEBUG: 'DEBUG' };
+            static enabled = true;
+
+            static info(message) { this.log(this.levels.INFO, message); }
+            static warn(message) { this.log(this.levels.WARN, message); }
+            static error(message) { this.log(this.levels.ERROR, message); }
+            static debug(message) { this.log(this.levels.DEBUG, message); }
+
+            static log(level, message) {
+                if (!this.enabled) return;
+                const timestamp = new Date().toISOString();
+                const style = {
+                    'INFO': 'color: #00A6A6; font-weight: bold;',
+                    'WARN': 'color: #F59E0B; font-weight: bold;',
+                    'ERROR': 'color: #EF4444; font-weight: bold;',
+                    'DEBUG': 'color: #6B7280;'
+                };
+                console.log(`%c[${timestamp}] [${level}] ${message}`, style[level] || '');
+            }
+
+            static disable() { this.enabled = false; }
+            static enable() { this.enabled = true; }
+        }
+
+        // --- 2. Loader (مسؤول عن جلب البيانات) ---
+        class Loader {
+            static async fetchJSON(url) {
+                try {
+                    Logger.info(`جاري تحميل: ${url}`);
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error(`HTTP Error ${response.status}`);
+                    return await response.json();
+                } catch (error) {
+                    Logger.error(`فشل تحميل ${url}: ${error.message}`);
+                    throw error;
+                }
+            }
+        }
+
+        // --- 3. ThemeEngine (مسؤول عن تطبيق التصميم عبر CSS Variables) ---
+        class ThemeEngine {
+            static apply(config) {
+                const tokens = config.tokens;
+                const root = document.documentElement;
+
+                // تطبيق الألوان
+                Object.entries(tokens.colors).forEach(([key, value]) => {
+                    root.style.setProperty(`--color-${key}`, value);
+                });
+
+                // تطبيق المسافات
+                Object.entries(tokens.spacing).forEach(([key, value]) => {
+                    root.style.setProperty(`--spacing-${key}`, value);
+                });
+
+                // تطبيق نصف القطر
+                Object.entries(tokens.radius).forEach(([key, value]) => {
+                    root.style.setProperty(`--radius-${key}`, value);
+                });
+
+                // تطبيق الخطوط
+                root.style.setProperty('--font-primary', `${tokens.font.primary}, sans-serif`);
+                root.style.setProperty('--font-fallback', `${tokens.font.fallback}, sans-serif`);
+
+                // تطبيق الظلال
+                Object.entries(tokens.shadow).forEach(([key, value]) => {
+                    if (key === 'enabled' && !value) return;
+                    root.style.setProperty(`--shadow-${key}`, value);
+                });
+
+                // تطبيق الحدود والتحولات
+                root.style.setProperty('--border-default', tokens.border.default);
+                root.style.setProperty('--transition-default', tokens.transition.default);
+
+                Logger.info('ThemeEngine: تم تطبيق جميع Design Tokens بنجاح.');
+            }
+        }
+
+        // --- 4. Components (مكونات واجهة المستخدم المستقلة) ---
+        class Component {
+            static createElement(tag, classes = [], attributes = {}) {
+                const el = document.createElement(tag);
+                if (classes.length) el.classList.add(...classes);
+                Object.entries(attributes).forEach(([key, value]) => el.setAttribute(key, value));
+                return el;
+            }
+
+            static appendChildren(parent, children) {
+                children.forEach(child => {
+                    if (child instanceof Node) parent.appendChild(child);
+                });
+            }
+        }
+
+        class HeaderComponent extends Component {
+            static build(data, config) {
+                const container = this.createElement('div', ['header-component']);
+                
+                // الشعار
+                const logo = this.createElement('img', ['header-logo'], { src: config.assets.logo, alt: config.company.name });
+                
+                // معلومات العرض
+                const info = this.createElement('div', ['header-info']);
+                const date = this.createElement('div', [], { style: 'font-size:14px;' });
+                date.textContent = data.offer.end_date;
+                const title = this.createElement('div', [], { style: 'font-size:12px; opacity:0.7;' });
+                title.textContent = data.offer.title;
+
+                this.appendChildren(info, [date, title]);
+                this.appendChildren(container, [logo, info]);
+                return container;
+            }
+        }
+
+        class OfferComponent extends Component {
+            static build(data, config) {
+                const container = this.createElement('div', ['offer-component']);
+                container.style.backgroundImage = `url(${config.assets.background})`;
+                
+                const overlay = this.createElement('div', ['offer-overlay']);
+                const title = this.createElement('h1', ['offer-title']);
+                title.textContent = data.offer.title;
+                const description = this.createElement('p', ['offer-description']);
+                description.textContent = data.offer.description;
+
+                this.appendChildren(overlay, [title, description]);
+                container.appendChild(overlay);
+                return container;
+            }
+        }
+
+        class PackageComponent extends Component {
+            static build(data, config) {
+                const container = this.createElement('div', ['package-component']);
+                const title = this.createElement('h2', ['package-title']);
+                title.textContent = data.package.title;
+                
+                const list = this.createElement('ul', ['package-features']);
+                data.package.features.forEach(f => {
+                    const item = this.createElement('li');
+                    item.textContent = f;
+                    list.appendChild(item);
+                });
+
+                this.appendChildren(container, [title, list]);
+                return container;
+            }
+        }
+
+        class CategoryComponent extends Component {
+            static build(data, config) {
+                const container = this.createElement('div', ['grid']);
+                
+                data.categories.forEach(cat => {
+                    const card = this.createElement('div', ['category-card']);
+                    const icon = this.createElement('img', ['category-icon'], { src: config.assets.icons[cat.id], alt: cat.title });
+                    const title = this.createElement('h3', ['category-title']);
+                    title.textContent = cat.title;
+                    const description = this.createElement('p', ['category-description']);
+                    description.textContent = cat.description;
+
+                    this.appendChildren(card, [icon, title, description]);
+                    container.appendChild(card);
+                });
+                return container;
+            }
+        }
+
+        class FeatureComponent extends Component {
+            static build(data, config) {
+                const container = this.createElement('div', ['grid']);
+                
+                data.features.forEach(f => {
+                    const card = this.createElement('div', ['feature-card']);
+                    const title = this.createElement('h3', ['feature-title']);
+                    title.textContent = f.title;
+                    const description = this.createElement('p', ['feature-description']);
+                    description.textContent = f.description;
+
+                    this.appendChildren(card, [title, description]);
+                    container.appendChild(card);
+                });
+                return container;
+            }
+        }
+
+        class CTAComponent extends Component {
+            static build(data, config) {
+                const container = this.createElement('div', ['cta-component']);
+                const title = this.createElement('h2', ['cta-title']);
+                title.textContent = data.cta.text;
+                
+                const button = this.createElement('a', ['cta-button'], { href: '#' });
+                button.textContent = data.cta.button_text;
+
+                this.appendChildren(container, [title, button]);
+                return container;
+            }
+        }
+
+        class ContactComponent extends Component {
+            static build(data, config) {
+                const container = this.createElement('div', ['contact-component']);
+                const title = this.createElement('h3', ['contact-title']);
+                title.textContent = data.contact.title;
+
+                const links = this.createElement('div', ['contact-links']);
+                
+                // واتساب
+                const whatsappLink = this.createElement('a', ['contact-link'], { href: `https://wa.me/${config.company.whatsapp.replace(/\+/g, '')}`, target: '_blank' });
+                const waIcon = this.createElement('img', ['contact-icon'], { src: config.assets.icons.whatsapp, alt: 'WhatsApp' });
+                const waLabel = document.createTextNode(data.contact.whatsapp_label);
+                this.appendChildren(whatsappLink, [waIcon, waLabel]);
+
+                // البريد الإلكتروني
+                const emailLink = this.createElement('a', ['contact-link'], { href: `mailto:${config.company.email}` });
+                const emailIcon = this.createElement('img', ['contact-icon'], { src: config.assets.icons.email, alt: 'Email' });
+                const emailLabel = document.createTextNode(data.contact.email_label);
+                this.appendChildren(emailLink, [emailIcon, emailLabel]);
+
+                this.appendChildren(links, [whatsappLink, emailLink]);
+
+                // QR (اختياري)
+                let qr = null;
+                if (config.features.show_qr) {
+                    qr = this.createElement('img', ['contact-qr'], { src: config.assets.qr, alt: 'QR Code' });
+                }
+
+                this.appendChildren(container, [title, links]);
+                if (qr) container.appendChild(qr);
+                return container;
+            }
+        }
+
+        class FooterComponent extends Component {
+            static build(data, config) {
+                const container = this.createElement('div', ['footer-component']);
+                
+                const logo = this.createElement('img', ['footer-logo'], { src: config.assets.logo, alt: config.company.name });
+                
+                const links = this.createElement('div', ['footer-links']);
+                const waIcon = this.createElement('img', ['footer-icon'], { src: config.assets.icons.whatsapp, alt: 'WhatsApp' });
+                const emailIcon = this.createElement('img', ['footer-icon'], { src: config.assets.icons.email, alt: 'Email' });
+                
+                const waLink = this.createElement('a', [], { href: `https://wa.me/${config.company.whatsapp.replace(/\+/g, '')}`, target: '_blank' });
+                waLink.appendChild(waIcon);
+                const emailLink = this.createElement('a', [], { href: `mailto:${config.company.email}` });
+                emailLink.appendChild(emailIcon);
+
+                this.appendChildren(links, [waLink, emailLink]);
+
+                // --- أزرار التصدير (مدمجة في التذييل) ---
+                const exportGroup = this.createElement('div', ['export-group']);
+                const btnPng = this.createElement('button', ['export-btn'], { id: 'btn-export-png' });
+                btnPng.textContent = 'PNG';
+                const btnPdf = this.createElement('button', ['export-btn'], { id: 'btn-export-pdf' });
+                btnPdf.textContent = 'PDF';
+                
+                // ربط الأزرار بمحرك التصدير (يتم تفعيله بعد تهيئة المحرك)
+                btnPng.onclick = () => ExportEngine.exportPNG();
+                btnPdf.onclick = () => ExportEngine.exportPDF();
+
+                this.appendChildren(exportGroup, [btnPng, btnPdf]);
+                this.appendChildren(container, [logo, links, exportGroup]);
+                return container;
+            }
+        }
+
+        // --- 5. Renderer (مسؤول عن تجميع المكونات وبناء الصفحة) ---
+        class Renderer {
+            static components = {
+                header: HeaderComponent,
+                offer: OfferComponent,
+                package: PackageComponent,
+                categories: CategoryComponent,
+                features: FeatureComponent,
+                cta: CTAComponent,
+                contact: ContactComponent,
+                footer: FooterComponent
+            };
+
+            static build(config, data) {
+                Logger.info('Renderer: بدء بناء الصفحة...');
+                
+                // تعيين عنوان الصفحة
+                document.getElementById('page-title').textContent = data.app.title;
+
+                // بناء كل مكون وإلحاقه بالعنصر المناسب
+                document.getElementById('app-header').appendChild(this.components.header.build(data, config));
+                document.getElementById('section-offer').appendChild(this.components.offer.build(data, config));
+                document.getElementById('section-package').appendChild(this.components.package.build(data, config));
+                document.getElementById('section-categories').appendChild(this.components.categories.build(data, config));
+                document.getElementById('section-features').appendChild(this.components.features.build(data, config));
+                document.getElementById('section-cta').appendChild(this.components.cta.build(data, config));
+                document.getElementById('section-contact').appendChild(this.components.contact.build(data, config));
+                document.getElementById('app-footer').appendChild(this.components.footer.build(data, config));
+
+                Logger.info('Renderer: تم بناء جميع المكونات بنجاح.');
+            }
+        }
+
+        // --- 6. Export Engine (Plugin Ready) ---
+        class ExportEngine {
+            static config = null;
+            static targetElement = null;
+
+            static init(config) {
+                this.config = config;
+                // تحديد العنصر المستهدف للتصدير (منطقة الـ main بأكملها)
+                this.targetElement = document.getElementById('app-main');
+                Logger.info('ExportEngine: تم تهيئة المحرك بنجاح.');
+            }
+
+            // دالة مساعدة لبناء اسم الملف تلقائياً
+            static getFilename(extension) {
+                const date = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+                const templateId = this.config.template.id || 'default';
+                return `TERA-${templateId.charAt(0).toUpperCase() + templateId.slice(1)}-${date}.${extension}`;
+            }
+
+            // دالة مساعدة للتحميل
+            static download(dataUrl, filename) {
+                const link = document.createElement('a');
+                link.href = dataUrl;
+                link.download = filename;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                Logger.info(`ExportEngine: تم تحميل الملف ${filename}`);
+            }
+
+            // دالة مساعدة لتصدير الصور (PNG, JPEG, WEBP)
+            static async exportImage(format) {
+                try {
+                    if (!this.targetElement) throw new Error('العنصر المستهدف غير موجود.');
+                    
+                    const options = this.config.export;
+                    const sizeConfig = this.config.sizes.options[this.config.sizes.default] || this.config.sizes.options.instagram_post;
+                    
+                    // بناء إعدادات html2canvas
+                    const canvasOptions = {
+                        scale: options.scale || 2,
+                        backgroundColor: options.background || '#FFFFFF',
+                        width: sizeConfig.width,
+                        height: sizeConfig.height,
+                        useCORS: true,
+                        logging: false
+                    };
+
+                    Logger.info(`ExportEngine: جاري تصدير ${format.toUpperCase()}...`);
+                    const canvas = await html2canvas(this.targetElement, canvasOptions);
+                    
+                    let mimeType = 'image/png';
+                    if (format === 'jpeg') mimeType = 'image/jpeg';
+                    else if (format === 'webp') mimeType = 'image/webp';
+
+                    const quality = format === 'png' ? undefined : (options.quality || 0.95);
+                    const dataUrl = canvas.toDataURL(mimeType, quality);
+                    
+                    this.download(dataUrl, this.getFilename(format));
+                } catch (error) {
+                    Logger.error(`ExportEngine: فشل تصدير ${format.toUpperCase()} - ${error.message}`);
+                }
+            }
+
+            static exportPNG() { this.exportImage('png'); }
+            static exportJPEG() { this.exportImage('jpeg'); }
+            static exportWEBP() { this.exportImage('webp'); }
+
+            // دالة تصدير PDF
+            static async exportPDF() {
+                try {
+                    if (!this.targetElement) throw new Error('العنصر المستهدف غير موجود.');
+                    
+                    const options = this.config.export;
+                    const sizeConfig = this.config.sizes.options[this.config.sizes.default] || this.config.sizes.options.instagram_post;
+                    
+                    Logger.info('ExportEngine: جاري تصدير PDF...');
+                    
+                    // إنشاء Canvas أولاً للحصول على الصورة
+                    const canvasOptions = {
+                        scale: options.scale || 2,
+                        backgroundColor: options.background || '#FFFFFF',
+                        width: sizeConfig.width,
+                        height: sizeConfig.height,
+                        useCORS: true,
+                        logging: false
+                    };
+                    const canvas = await html2canvas(this.targetElement, canvasOptions);
+                    const imgData = canvas.toDataURL('image/png');
+
+                    // إنشاء PDF
+                    const { jsPDF } = window.jspdf;
+                    const pdf = new jsPDF({
+                        orientation: sizeConfig.width > sizeConfig.height ? 'landscape' : 'portrait',
+                        unit: 'px',
+                        format: [sizeConfig.width, sizeConfig.height]
+                    });
+
+                    pdf.addImage(imgData, 'PNG', 0, 0, sizeConfig.width, sizeConfig.height);
+                    pdf.save(this.getFilename('pdf'));
+
+                    Logger.info('ExportEngine: تم تصدير PDF بنجاح.');
+                } catch (error) {
+                    Logger.error(`ExportEngine: فشل تصدير PDF - ${error.message}`);
+                }
+            }
+        }
+
+        // --- 7. App (مدير التطبيق الرئيسي) ---
+        class App {
+            static async init() {
+                try {
+                    Logger.info('App: بدء تشغيل TERA Studio...');
+                    
+                    // 1. تحميل الإعدادات والبيانات
+                    const config = await Loader.fetchJSON('config.json');
+                    const data = await Loader.fetchJSON('data.json');
+
+                    // 2. تطبيق محرك التصميم (Theme Engine)
+                    ThemeEngine.apply(config);
+
+                    // 3. بناء المكونات عبر المصور (Renderer)
+                    Renderer.build(config, data);
+
+                    // 4. تهيئة محرك التصدير
+                    ExportEngine.init(config);
+
+                    Logger.info(`App: تم تشغيل التطبيق بنجاح. الإصدار ${config.app.version} - القالب: ${config.template.name}`);
+                } catch (error) {
+                    Logger.error(`App: فشل تشغيل التطبيق - ${error.message}`);
+                    document.body.innerHTML = `<h1 style="color:red; text-align:center; margin-top:50px;">حدث خطأ فادح في تحميل التطبيق. يرجى التحقق من ملفات JSON ووجود المكتبات.</h1>`;
+                }
+            }
+        }
+
+        // --- تشغيل التطبيق ---
+        document.addEventListener('DOMContentLoaded', () => App.init());
+    </script>
+</body>
+</html>
