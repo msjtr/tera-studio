@@ -1,0 +1,87 @@
+{
+  "app": {
+    "name": "TERA Studio",
+    "version": "1.0.0",
+    "build": "2026.08"
+  },
+  "company": {
+    "name": "TERA",
+    "website": "",
+    "email": "info@tera-ksa.sa.com",
+    "whatsapp": "+966555698774"
+  },
+  "assets": {
+    "logo": "assets/logo/logo.png",
+    "background": "assets/backgrounds/background.png",
+    "qr": "assets/qr/qr.png",
+    "icons": {
+      "housewife": "assets/icons/housewife.svg",
+      "retired": "assets/icons/retired.svg",
+      "employee": "assets/icons/employee.svg",
+      "whatsapp": "assets/icons/whatsapp.svg",
+      "email": "assets/icons/email.svg"
+    }
+  },
+  "template": {
+    "id": "taysir",
+    "name": "باقة تيسير"
+  },
+  "languages": ["ar"],
+  "rtl": true,
+  "language": "ar-SA",
+  "currency": "SAR",
+  "tokens": {
+    "colors": {
+      "primary": "#083B66",
+      "secondary": "#00A6A6",
+      "background": "#F5F7FA",
+      "card": "#FFFFFF",
+      "text": "#1F2937",
+      "white": "#FFFFFF",
+      "transparent": "transparent"
+    },
+    "spacing": {
+      "small": "8px",
+      "medium": "16px",
+      "large": "24px"
+    },
+    "radius": {
+      "default": "20px"
+    },
+    "font": {
+      "primary": "Cairo",
+      "fallback": "IBM Plex Sans Arabic"
+    },
+    "shadow": {
+      "enabled": true,
+      "default": "0 4px 12px rgba(0,0,0,0.1)"
+    },
+    "border": {
+      "default": "1px solid #e5e7eb"
+    },
+    "transition": {
+      "default": "all 0.3s ease"
+    }
+  },
+  "sizes": {
+    "default": "instagram_post",
+    "options": {
+      "instagram_post": { "width": 1080, "height": 1350 },
+      "instagram_story": { "width": 1080, "height": 1920 },
+      "square": { "width": 1080, "height": 1080 },
+      "a4": { "width": 2480, "height": 3508 }
+    }
+  },
+  "export": {
+    "default": "png",
+    "quality": 1,
+    "scale": 2,
+    "background": "#FFFFFF",
+    "filename": "tera-design",
+    "formats": ["png", "pdf", "jpeg", "webp"]
+  },
+  "features": {
+    "show_qr": true,
+    "show_contact": true
+  }
+}
