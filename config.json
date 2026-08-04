@@ -4,12 +4,14 @@
     "version": "1.0.0",
     "build": "2026.08"
   },
+
   "company": {
     "name": "TERA",
     "website": "",
     "email": "info@tera-ksa.sa.com",
     "whatsapp": "+966555698774"
   },
+
   "assets": {
     "logo": "assets/logo/logo.png",
     "background": "assets/backgrounds/background.png",
@@ -22,14 +24,21 @@
       "email": "assets/icons/email.svg"
     }
   },
+
   "template": {
     "id": "taysir",
     "name": "باقة تيسير"
   },
-  "languages": ["ar"],
-  "rtl": true,
-  "language": "ar-SA",
-  "currency": "SAR",
+
+  "locale": {
+    "rtl": true,
+    "language": "ar-SA",
+    "languages": [
+      "ar"
+    ],
+    "currency": "SAR"
+  },
+
   "tokens": {
     "colors": {
       "primary": "#083B66",
@@ -40,48 +49,88 @@
       "white": "#FFFFFF",
       "transparent": "transparent"
     },
+
     "spacing": {
-      "small": "8px",
-      "medium": "16px",
-      "large": "24px"
+      "xs": "4px",
+      "sm": "8px",
+      "md": "16px",
+      "lg": "24px",
+      "xl": "32px"
     },
+
     "radius": {
-      "default": "20px"
+      "sm": "8px",
+      "md": "12px",
+      "lg": "20px"
     },
+
     "font": {
       "primary": "Cairo",
       "fallback": "IBM Plex Sans Arabic"
     },
+
     "shadow": {
       "enabled": true,
-      "default": "0 4px 12px rgba(0,0,0,0.1)"
+      "sm": "0 2px 8px rgba(0,0,0,0.08)",
+      "md": "0 4px 12px rgba(0,0,0,0.10)",
+      "lg": "0 10px 30px rgba(0,0,0,0.15)"
     },
+
     "border": {
-      "default": "1px solid #e5e7eb"
+      "default": "1px solid #E5E7EB"
     },
+
     "transition": {
-      "default": "all 0.3s ease"
+      "default": "all .3s ease"
     }
   },
-  "sizes": {
+
+  "layout": {
     "default": "instagram_post",
-    "options": {
-      "instagram_post": { "width": 1080, "height": 1350 },
-      "instagram_story": { "width": 1080, "height": 1920 },
-      "square": { "width": 1080, "height": 1080 },
-      "a4": { "width": 2480, "height": 3508 }
+    "sizes": {
+      "instagram_post": {
+        "width": 1080,
+        "height": 1350
+      },
+      "instagram_story": {
+        "width": 1080,
+        "height": 1920
+      },
+      "square": {
+        "width": 1080,
+        "height": 1080
+      },
+      "a4": {
+        "width": 2480,
+        "height": 3508
+      }
     }
   },
+
   "export": {
     "default": "png",
+    "filename": "TERA",
     "quality": 1,
     "scale": 2,
     "background": "#FFFFFF",
-    "filename": "tera-design",
-    "formats": ["png", "pdf", "jpeg", "webp"]
+    "formats": [
+      "png",
+      "pdf",
+      "jpeg",
+      "webp"
+    ]
   },
+
+  "urlTemplates": {
+    "whatsapp": "https://wa.me/{number}",
+    "email": "mailto:{email}"
+  },
+
   "features": {
-    "show_qr": true,
-    "show_contact": true
+    "showQR": true,
+    "showContact": true,
+    "showFooter": true,
+    "enableAnimation": true,
+    "enableExport": true
   }
 }
